@@ -1,0 +1,43 @@
+{
+  "name": "@blogody/api-client",
+  "version": "1.0.14",
+  "private": false,
+  "author": "Joost Jansky",
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "scripts": {
+    "build": "yarn run clean && yarn run compile && ./script/fixup.sh",
+    "clean": "rimraf -rf ./dist && rimraf -rf tsconfig.build-esm.ts && rimraf -rf tsconfig.build-cjs.ts",
+    "compile": "tsc -p tsconfig.build-esm.json && tsc -p tsconfig.build-cjs.json",
+    "prepublishOnly": "yarn run build",
+    "test": "yarn run build",
+    "bump": "yarn upgrade --latest"
+  },
+  "devDependencies": {
+    "@types/node": "^16.3.2",
+    "@types/react": "^17.0.14",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "eslint": "^7.30.0",
+    "eslint-config-next": "^11.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-tailwind": "^0.2.1",
+    "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "graphql": "^15.5.1",
+    "urql": "^2.0.4",
+    "react": "^17.0.2"
+  }
+}
