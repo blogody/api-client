@@ -22,6 +22,22 @@ interface GetProjectOrCustomDomainResult {
   domain: string
 }
 
+interface PostsOrPagesOptions {
+  limit?: number
+  tag?: string
+  author?: string
+  exclude?: { id: string }
+}
+
+interface PostOrPageOptions {
+  id?: string
+  slug?: string
+}
+
+interface TagOrAuthorOptions {
+  slug?: string
+}
+
 export const getProjectOrCustomDomain = (hostOptions: HostOptions): GetProjectOrCustomDomainResult => {
   const result = { project: '', domain: '' }
   // process.env.BLOGODY_CUSTOM_HOST
@@ -82,18 +98,6 @@ const allSettings = (client: Client) => async (): Promise<Settings | null> => {
   return settings
 }
 
-interface PostsOrPagesOptions {
-  limit?: number
-  tag?: string
-  author?: string
-  exclude?: { id: string }
-}
-
-interface PostOrPageOptions {
-  id?: string
-  slug?: string
-}
-
 const allPosts =
   (client: Client) =>
   async (options?: PostsOrPagesOptions): Promise<Post[]> => {
@@ -142,38 +146,6 @@ const allPages =
     return allPages
   }
 
-const allTags =
-  (client: Client) =>
-  async (props?: { limit: number }): Promise<Tag[]> => {
-    let tags: Tag[]
-    try {
-      const { data } = await client.query<{ allTags: { tags: Tag[] } }>(allTagsQuery).toPromise()
-      tags = data?.allTags?.tags || []
-      //console.log('data_tags', tags)
-    } catch (error) {
-      throw new Error('GraphQl fetching failed')
-    }
-
-    const allTags = tags.filter((_, i) => (props?.limit ? i + 1 < props.limit : true))
-    return allTags
-  }
-
-const allAuthors =
-  (client: Client) =>
-  async (props?: { limit: number }): Promise<Author[]> => {
-    let authors: Author[]
-    try {
-      const { data } = await client.query<{ allAuthors: { authors: Author[] } }>(allAuthorsQuery).toPromise()
-      authors = data?.allAuthors?.authors || []
-      //console.log('data_authors', authors)
-    } catch (error) {
-      throw new Error('GraphQl fetching failed')
-    }
-
-    const allAuthors = authors.filter((_, i) => (props?.limit ? i + 1 < props.limit : true))
-    return allAuthors
-  }
-
 const postBySlugOrId =
   (client: Client) =>
   async (options?: PostOrPageOptions): Promise<Post | null> => {
@@ -214,6 +186,38 @@ const pageBySlugOrId =
       throw new Error('GraphQl fetching failed')
     }
     return page
+  }
+
+const allTags =
+  (client: Client) =>
+  async (props?: { limit: number }): Promise<Tag[]> => {
+    let tags: Tag[]
+    try {
+      const { data } = await client.query<{ allTags: { tags: Tag[] } }>(allTagsQuery).toPromise()
+      tags = data?.allTags?.tags || []
+      //console.log('data_tags', tags)
+    } catch (error) {
+      throw new Error('GraphQl fetching failed')
+    }
+
+    const allTags = tags.filter((_, i) => (props?.limit ? i + 1 < props.limit : true))
+    return allTags
+  }
+
+const allAuthors =
+  (client: Client) =>
+  async (props?: { limit: number }): Promise<Author[]> => {
+    let authors: Author[]
+    try {
+      const { data } = await client.query<{ allAuthors: { authors: Author[] } }>(allAuthorsQuery).toPromise()
+      authors = data?.allAuthors?.authors || []
+      //console.log('data_authors', authors)
+    } catch (error) {
+      throw new Error('GraphQl fetching failed')
+    }
+
+    const allAuthors = authors.filter((_, i) => (props?.limit ? i + 1 < props.limit : true))
+    return allAuthors
   }
 
 interface BlogodyAPIProps {
@@ -264,13 +268,13 @@ export class BlogodyAPI {
     return await pageBySlugOrId(this.client)(options)
   }
 
-  async tag(slug: string): Promise<Tag | null> {
+  async tag({ slug }: TagOrAuthorOptions): Promise<Tag | null> {
     // todo: make unique tag graphql endpoint available
     const tags = await this.tags()
     return tags?.find((tag) => tag.slug === slug) ?? null
   }
 
-  async author(slug: string): Promise<Author | null> {
+  async author({ slug }: TagOrAuthorOptions): Promise<Author | null> {
     // todo: make unique author graphql endpoint available
     const authors = await this.authors()
     return authors?.find((author) => author.slug === slug) ?? null
