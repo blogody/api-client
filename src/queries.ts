@@ -14,6 +14,7 @@ export const allSettingsQuery = `
         label
         url
       }
+      updatedAt
     }
   }
 `
@@ -46,6 +47,7 @@ export const allPostsQuery = `
         }
       }
       publishedAt
+      updatedAt
     }
   }
 `
@@ -78,6 +80,7 @@ export const allPagesQuery = `
         }
       }
       publishedAt
+      updatedAt
     }
   }
 `
@@ -133,6 +136,7 @@ export const postQuery = `
         }
       }
       publishedAt
+      updatedAt
     }
   }
 `
@@ -166,6 +170,7 @@ export const pageQuery = `
         }
       }
       publishedAt
+      updatedAt
     }
   }
 `

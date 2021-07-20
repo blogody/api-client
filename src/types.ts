@@ -38,6 +38,7 @@ export interface Post {
   tagRelations: TagRelation[]
   authorRelations: AuthorRelation[]
   publishedAt: Date
+  updatedAt: Date
 }
 
 export type Page = Post
@@ -58,6 +59,7 @@ export interface Settings {
   lang: string
   navigations: Navigation[]
   socials: Social[]
+  updatedAt: Date
 }
 
 type PostSlugProjectIdCompoundUniqueInput = {
