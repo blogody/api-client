@@ -113,6 +113,7 @@ export const postQuery = `
       featureImage
       html
       excerpt
+      type
       tagRelations {
         id
         sort
@@ -145,6 +146,7 @@ export const pageQuery = `
       featureImage
       html
       excerpt
+      type
       tagRelations {
         id
         sort

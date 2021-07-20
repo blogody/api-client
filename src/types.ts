@@ -22,6 +22,11 @@ export type AuthorRelation = {
   author: Author
 }
 
+export enum PostType {
+  Page = 'PAGE',
+  Post = 'POST',
+}
+
 export interface Post {
   id: string
   slug: string
@@ -29,6 +34,7 @@ export interface Post {
   featureImage: string
   html: string
   excerpt: string
+  type: PostType
   tagRelations: TagRelation[]
   authorRelations: AuthorRelation[]
   publishedAt: Date
