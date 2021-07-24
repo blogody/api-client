@@ -10,8 +10,6 @@ import {
   pageQuery,
 } from './queries'
 
-const blogodyUrl = 'https://www.blogody.io'
-
 interface HostOptions {
   host: string
   custom?: string
@@ -38,7 +36,7 @@ interface TagOrAuthorOptions {
   slug?: string
 }
 
-export const getProjectOrCustomDomain = (hostOptions: HostOptions): GetProjectOrCustomDomainResult => {
+export const getProjectOrCustomDomain = (apiUrl: string, hostOptions: HostOptions): GetProjectOrCustomDomainResult => {
   const result = { project: '', domain: '' }
   // process.env.BLOGODY_CUSTOM_HOST
   const { host } = hostOptions
@@ -50,7 +48,7 @@ export const getProjectOrCustomDomain = (hostOptions: HostOptions): GetProjectOr
   }
 
   // project = subdomain
-  const domain = blogodyUrl.replace('https://www', '')
+  const domain = apiUrl.replace('https://www', '')
   const project = host.replace(domain, '')
   if (host.search(domain) > 0) {
     return { ...result, project }
@@ -65,25 +63,25 @@ export const getProjectOrCustomDomain = (hostOptions: HostOptions): GetProjectOr
   return { ...result, domain: project }
 }
 
-const hostHeaders = (hostOptions?: HostOptions) => {
+const hostHeaders = (apiUrl: string, hostOptions?: HostOptions) => {
   if (!hostOptions) return undefined
   return {
-    'x-blogody-domain': getProjectOrCustomDomain(hostOptions).domain,
-    'x-blogody-project': getProjectOrCustomDomain(hostOptions).project,
+    'x-blogody-domain': getProjectOrCustomDomain(apiUrl, hostOptions).domain,
+    'x-blogody-project': getProjectOrCustomDomain(apiUrl, hostOptions).project,
   }
 }
 
-const fetchOptions = ({ key, hostOptions }: { key: string; hostOptions?: HostOptions }) => ({
+const fetchOptions = ({ key, apiUrl, hostOptions }: { key: string; apiUrl: string; hostOptions?: HostOptions }) => ({
   headers: {
     authorization: `Bearer ${key}`,
-    ...hostHeaders(hostOptions),
+    ...hostHeaders(apiUrl, hostOptions),
   },
 })
 
-const initClient = ({ url, key, hostOptions }: { url: string; key: string; hostOptions?: HostOptions }) =>
+const initClient = ({ apiUrl, key, hostOptions }: { apiUrl: string; key: string; hostOptions?: HostOptions }) =>
   createClient({
-    url: `${url}/api/v1/graphql`,
-    fetchOptions: fetchOptions({ key, hostOptions }),
+    url: `${apiUrl}/api/v1/graphql`,
+    fetchOptions: fetchOptions({ key, apiUrl, hostOptions }),
   })
 
 const allSettings = (client: Client) => async (): Promise<Settings | null> => {
@@ -223,13 +221,16 @@ const allAuthors =
 interface BlogodyAPIProps {
   key: string
   hostOptions?: HostOptions
+  apiUrl?: string
 }
 
 export class BlogodyAPI {
   private client: Client
 
-  constructor({ key, hostOptions }: BlogodyAPIProps) {
-    const client = initClient({ url: blogodyUrl, key, hostOptions })
+  constructor({ key, hostOptions, apiUrl: url }: BlogodyAPIProps) {
+    const blogodyUrl = 'https://www.blogody.com'
+    const apiUrl = url || blogodyUrl
+    const client = initClient({ apiUrl, key, hostOptions })
     this.client = client
   }
 

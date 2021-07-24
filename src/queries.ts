@@ -15,6 +15,7 @@ export const allSettingsQuery = `
         url
       }
       updatedAt
+      url
     }
   }
 `

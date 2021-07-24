@@ -57,6 +57,7 @@ export interface Settings {
   title: string
   description: string
   lang: string
+  url: string
   navigations: Navigation[]
   socials: Social[]
   updatedAt: Date
