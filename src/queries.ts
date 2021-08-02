@@ -4,6 +4,9 @@ export const allSettingsQuery = `
       title
       description
       lang
+      accent
+      brandLabel
+      brandUrl
       navigations {
         sort
         label

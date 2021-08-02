@@ -57,6 +57,9 @@ export interface Settings {
   title: string
   description: string
   lang: string
+  accent?: string
+  brandLabel?: string
+  brandUrl?: string
   url: string
   navigations: Navigation[]
   socials: Social[]
