@@ -1,6 +1,6 @@
 {
   "name": "@blogody/api-client",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "private": false,
   "author": "Joost Jansky",
   "license": "MIT",
@@ -21,11 +21,11 @@
     "bump": "yarn upgrade --latest"
   },
   "devDependencies": {
-    "@types/node": "^16.3.2",
-    "@types/react": "^17.0.14",
-    "@typescript-eslint/eslint-plugin": "^4.28.3",
-    "@typescript-eslint/parser": "^4.28.3",
-    "eslint": "^7.30.0",
+    "@types/node": "^16.4.13",
+    "@types/react": "^17.0.16",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
+    "eslint": "^7.32.0",
     "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.24.0",
