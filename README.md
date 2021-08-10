@@ -1,7 +1,6 @@
 # Blogody API Client for your JavaScript/TypeScript projects
 
-This package is designed to work with the Blogody API which is not yet published.
-Follow us on [Twitter](https://twitter.com/jamifyjs) for exciting upcoming announcements!
+An isomorphic JavaScript/TypeScript client for Blogody. This package makes pulling data from headless [Blogody CMS](https://www.blogody.com) a breeze.
 
 ## 🚀 Quick start
 
@@ -14,15 +13,15 @@ Follow us on [Twitter](https://twitter.com/jamifyjs) for exciting upcoming annou
 2.  **Use the client in your js/ts projects**
 
     ```javascript
-    import { BlogodyAPI } from "@blogody/api-client";
+    import { BlogodyAPI } from '@blogody/api-client'
 
-    const api = new BlogodyAPI({ key: "YOUR BLOGODY API ACCESS KEY" });
+    const api = new BlogodyAPI({ key: 'YOUR BLOGODY API ACCESS KEY' })
 
     // make an API calls
-    const settings = await api.settings();
-    const posts = await api.posts();
+    const settings = await api.settings()
+    const posts = await api.posts()
 
-    console.log(posts);
+    console.log(posts)
     ```
 
 ## 🔑 Blogody API Keys
