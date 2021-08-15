@@ -17,6 +17,10 @@ export const allSettingsQuery = `
         label
         url
       }
+      analytics {
+        provider
+        trackingId
+      }
       updatedAt
       url
     }

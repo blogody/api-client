@@ -1,5 +1,5 @@
 import { Client, createClient } from 'urql'
-import { Post, Page, PostOrPage, Tag, Author, Settings, PageWhereUniqueInput, PostWhereUniqueInput } from './types'
+import { Post, Page, PostOrPage, Tag, Author, Settings, PageWhereUniqueInput, PostWhereUniqueInput } from './types.js'
 import {
   allSettingsQuery,
   allPostsQuery,
@@ -8,7 +8,7 @@ import {
   allAuthorsQuery,
   postQuery,
   pageQuery,
-} from './queries'
+} from './queries.js'
 
 interface HostOptions {
   host: string

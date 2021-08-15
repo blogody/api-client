@@ -53,6 +53,11 @@ export interface Navigation {
 
 export type Social = Navigation
 
+export interface Analytic {
+  provider: string
+  trackingId: string
+}
+
 export interface Settings {
   title: string
   description: string
@@ -63,6 +68,7 @@ export interface Settings {
   url: string
   navigations: Navigation[]
   socials: Social[]
+  analytics: Analytic[]
   updatedAt: Date
 }
 
