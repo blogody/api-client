@@ -3,6 +3,7 @@ export const allSettingsQuery = `
     allSettings {
       title
       description
+      descriptionHidden
       lang
       accent
       brandLabel

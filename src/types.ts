@@ -61,6 +61,7 @@ export interface Analytic {
 export interface Settings {
   title: string
   description: string
+  descriptionHidden: boolean
   lang: string
   accent?: string
   brandLabel?: string
