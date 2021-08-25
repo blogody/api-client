@@ -1,4 +1,4 @@
-import { Client, createClient } from 'urql'
+import { Client, createClient } from '@urql/core'
 
 import { Settings, Tag, Author, Post, Page, PostOrPage, PostWhereUniqueInput, PageWhereUniqueInput } from './types'
 
