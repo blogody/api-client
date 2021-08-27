@@ -34,6 +34,7 @@ export interface Post {
   featureImage: string
   html: string
   excerpt: string
+  canonicalUrl: string
   type: PostType
   tagRelations: TagRelation[]
   authorRelations: AuthorRelation[]

@@ -37,6 +37,7 @@ export const allPostsQuery = `
       featureImage
       html
       excerpt
+      canonicalUrl
       tagRelations {
         id
         sort
@@ -70,6 +71,7 @@ export const allPagesQuery = `
       featureImage
       html
       excerpt
+      canonicalUrl
       tagRelations {
         id
         sort
@@ -125,6 +127,7 @@ export const postQuery = `
       featureImage
       html
       excerpt
+      canonicalUrl
       type
       tagRelations {
         id
@@ -159,6 +162,7 @@ export const pageQuery = `
       featureImage
       html
       excerpt
+      canonicalUrl
       type
       tagRelations {
         id
