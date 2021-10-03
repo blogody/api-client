@@ -32,8 +32,8 @@ export interface Post {
   slug: string
   title: string
   featureImage: string
-  featureImageWidth: number
-  featureImageHeight: number
+  featureImageWidth: number | null
+  featureImageHeight: number | null
   html: string
   excerpt: string
   canonicalUrl: string
