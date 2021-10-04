@@ -6,7 +6,7 @@ An isomorphic JavaScript/TypeScript client for Blogody. This package makes pulli
 
 1.  **Install the client**
 
-    ```shell
+    ```shell 
     yarn add @blogody/api-client
     ```
 
@@ -24,7 +24,7 @@ An isomorphic JavaScript/TypeScript client for Blogody. This package makes pulli
     console.log(posts)
     ```
 
-## 🔑 Blogody API Keys
+## 🔑 Blogody API Keys 
 
 Go to your Blogody account and create a new key under Settings > Developers.
 
