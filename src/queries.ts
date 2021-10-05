@@ -37,6 +37,7 @@ export const allPostsQuery = `
       featureImage
       featureImageWidth
       featureImageHeight
+      featureImageBlur
       html
       excerpt
       canonicalUrl
@@ -73,6 +74,7 @@ export const allPagesQuery = `
       featureImage
       featureImageWidth
       featureImageHeight
+      featureImageBlur
       html
       excerpt
       canonicalUrl
@@ -131,6 +133,7 @@ export const postQuery = `
       featureImage
       featureImageWidth
       featureImageHeight
+      featureImageBlur
       html
       excerpt
       canonicalUrl
@@ -168,6 +171,7 @@ export const pageQuery = `
       featureImage
       featureImageWidth
       featureImageHeight
+      featureImageBlur
       html
       excerpt
       canonicalUrl
