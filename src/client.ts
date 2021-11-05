@@ -253,11 +253,10 @@ const upsertMember =
   async (variables: AddMemberVariables): Promise<Member | null> => {
     let member: Member | null
     try {
-      console.log('variables', variables)
       const { data } = await client
-        .mutation<{ confirmOneMember: { member: Member } }>(confirmOneMemberMutation, variables)
+        .mutation<{ confirmOneMember: Member }>(confirmOneMemberMutation, variables)
         .toPromise()
-      member = data?.confirmOneMember?.member || null
+      member = data?.confirmOneMember || null
       console.log('upsertMember', data)
     } catch (error) {
       throw new Error('GraphQl fetching failed')
