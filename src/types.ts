@@ -1,3 +1,7 @@
+export interface User {
+  email: string
+}
+
 export interface Tag {
   id: string
   name: string
@@ -63,6 +67,7 @@ export interface Analytic {
 }
 
 export interface Settings {
+  id: string
   title: string
   description: string
   descriptionHidden: boolean
@@ -93,3 +98,7 @@ export type PostWhereUniqueInput = {
 }
 
 export type PageWhereUniqueInput = PostWhereUniqueInput
+
+export interface Member {
+  id: string
+}

@@ -1,3 +1,11 @@
+export const userQuery = `
+  query {
+    oneUser {
+      email
+    }
+  }
+`
+
 export const allSettingsQuery = `
   query {
     allSettings {
@@ -196,6 +204,14 @@ export const pageQuery = `
       }
       publishedAt
       updatedAt
+    }
+  }
+`
+
+export const confirmOneMemberMutation = `
+  mutation confirmOneMember($email: String!, $image: String) {
+    confirmOneMember(email: $email, image: $image) {
+      id
     }
   }
 `

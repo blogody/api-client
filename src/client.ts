@@ -1,8 +1,20 @@
 import { Client, createClient } from '@urql/core'
 
-import { Settings, Tag, Author, Post, Page, PostOrPage, PostWhereUniqueInput, PageWhereUniqueInput } from './types'
+import {
+  User,
+  Settings,
+  Tag,
+  Author,
+  Post,
+  Page,
+  PostOrPage,
+  PostWhereUniqueInput,
+  PageWhereUniqueInput,
+  Member,
+} from './types'
 
 import {
+  userQuery,
   allSettingsQuery,
   allPostsQuery,
   allPagesQuery,
@@ -10,6 +22,7 @@ import {
   allAuthorsQuery,
   postQuery,
   pageQuery,
+  confirmOneMemberMutation,
 } from './queries.js'
 
 interface HostOptions {
@@ -36,6 +49,11 @@ interface PostOrPageOptions {
 
 interface TagOrAuthorOptions {
   slug?: string
+}
+
+interface AddMemberVariables {
+  email: string
+  image?: string
 }
 
 export const getProjectOrCustomDomain = (apiUrl: string, hostOptions: HostOptions): GetProjectOrCustomDomainResult => {
@@ -85,6 +103,16 @@ const initClient = ({ apiUrl, key, hostOptions }: { apiUrl: string; key: string;
     url: `${apiUrl}/api/v1/graphql`,
     fetchOptions: fetchOptions({ key, apiUrl, hostOptions }),
   })
+
+const oneUser = (client: Client) => async (): Promise<User | null> => {
+  try {
+    const { data } = await client.query<{ oneUser: User }>(userQuery).toPromise()
+    return data?.oneUser ?? null
+    console.log('data_user', data)
+  } catch {
+    throw new Error('GraphQl fetching failed')
+  }
+}
 
 const allSettings = (client: Client) => async (): Promise<Settings | null> => {
   let settings: Settings | null
@@ -220,6 +248,24 @@ const allAuthors =
     return allAuthors
   }
 
+const upsertMember =
+  (client: Client) =>
+  async (variables: AddMemberVariables): Promise<Member | null> => {
+    let member: Member | null
+    try {
+      console.log('member', variables)
+      const { data } = await client
+        .mutation<{ confirmOneMember: { member: Member } }>(confirmOneMemberMutation, variables)
+        .toPromise()
+      member = data?.confirmOneMember?.member || null
+      console.log('member', member)
+    } catch (error) {
+      throw new Error('GraphQl fetching failed')
+    }
+
+    return member
+  }
+
 interface BlogodyAPIProps {
   key: string
   hostOptions?: HostOptions
@@ -234,6 +280,10 @@ export class BlogodyAPI {
     const apiUrl = url || blogodyUrl
     const client = initClient({ apiUrl, key, hostOptions })
     this.client = client
+  }
+
+  async user(): Promise<User | null> {
+    return await oneUser(this.client)()
   }
 
   async settings(): Promise<Settings | null> {
@@ -281,5 +331,9 @@ export class BlogodyAPI {
     // todo: make unique author graphql endpoint available
     const authors = await this.authors()
     return authors?.find((author) => author.slug === slug) ?? null
+  }
+
+  async confirmMember(variables: AddMemberVariables): Promise<Member | null> {
+    return await upsertMember(this.client)(variables)
   }
 }
