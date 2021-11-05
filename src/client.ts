@@ -108,7 +108,6 @@ const oneUser = (client: Client) => async (): Promise<User | null> => {
   try {
     const { data } = await client.query<{ oneUser: User }>(userQuery).toPromise()
     return data?.oneUser ?? null
-    console.log('data_user', data)
   } catch {
     throw new Error('GraphQl fetching failed')
   }
@@ -257,7 +256,6 @@ const upsertMember =
         .mutation<{ confirmOneMember: Member }>(confirmOneMemberMutation, variables)
         .toPromise()
       member = data?.confirmOneMember || null
-      console.log('upsertMember', data)
     } catch (error) {
       throw new Error('GraphQl fetching failed')
     }
