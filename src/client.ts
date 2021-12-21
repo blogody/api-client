@@ -23,6 +23,7 @@ import {
   postQuery,
   pageQuery,
   confirmOneMemberMutation,
+  unsubscribeOneMemberMutation,
 } from './queries.js'
 
 interface HostOptions {
@@ -54,6 +55,11 @@ interface TagOrAuthorOptions {
 interface AddMemberVariables {
   email: string
   image?: string
+}
+
+interface UnsubscribeMemberVariables {
+  recipientId: string
+  email: string
 }
 
 export const getProjectOrCustomDomain = (apiUrl: string, hostOptions: HostOptions): GetProjectOrCustomDomainResult => {
@@ -263,6 +269,23 @@ const upsertMember =
     return member
   }
 
+
+  const updateMember =
+  (client: Client) =>
+  async (variables: UnsubscribeMemberVariables): Promise<Member | null> => {
+    let member: Member | null
+    try {
+      const { data } = await client
+        .mutation<{ unsubscribeOneMember: Member }>(unsubscribeOneMemberMutation, variables)
+        .toPromise()
+      member = data?.unsubscribeOneMember || null
+    } catch (error) {
+      throw new Error('GraphQl fetching failed')
+    }
+
+    return member
+  }
+
 interface BlogodyAPIProps {
   key: string
   hostOptions?: HostOptions
@@ -332,5 +355,9 @@ export class BlogodyAPI {
 
   async confirmMember(variables: AddMemberVariables): Promise<Member | null> {
     return await upsertMember(this.client)(variables)
+  }
+
+  async unsubscribeMember(variables: UnsubscribeMemberVariables): Promise<Member | null> {
+    return await updateMember(this.client)(variables)
   }
 }
