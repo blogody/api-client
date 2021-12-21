@@ -58,7 +58,8 @@ interface AddMemberVariables {
 }
 
 interface UnsubscribeMemberVariables {
-  recipientId: string
+  userId: string
+  memberId: string
   email: string
 }
 
@@ -269,8 +270,7 @@ const upsertMember =
     return member
   }
 
-
-  const updateMember =
+const updateMember =
   (client: Client) =>
   async (variables: UnsubscribeMemberVariables): Promise<Member | null> => {
     let member: Member | null
