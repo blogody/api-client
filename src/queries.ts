@@ -215,3 +215,11 @@ export const confirmOneMemberMutation = `
     }
   }
 `
+
+export const unsubscribeOneMemberMutation = `
+  mutation unscubscribeOneMember($recipientId: String!, $email: String!) {
+    unsubscribeOneMember(recipientId: $recipientId, email: $email) {
+      id
+    }
+  }
+`
