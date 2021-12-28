@@ -209,8 +209,8 @@ export const pageQuery = `
 `
 
 export const confirmOneMemberMutation = `
-  mutation confirmOneMember($email: String!, $image: String) {
-    confirmOneMember(email: $email, image: $image) {
+  mutation confirmOneMember($email: String!, $name: String, $image: String) {
+    confirmOneMember(email: $email, name: $name, image: $image) {
       id
     }
   }

@@ -54,6 +54,7 @@ interface TagOrAuthorOptions {
 
 interface AddMemberVariables {
   email: string
+  name: string
   image?: string
 }
 
