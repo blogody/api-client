@@ -54,8 +54,10 @@ interface TagOrAuthorOptions {
 
 interface AddMemberVariables {
   email: string
-  name: string
+  name?: string
   image?: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 interface UnsubscribeMemberVariables {
