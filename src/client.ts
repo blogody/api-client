@@ -63,9 +63,12 @@ interface AddMemberVariables {
 
 interface UnsubscribeMemberVariables {
   userId: string
-  recipientId: string
   memberId: string
-  email: string
+}
+
+interface EmailOpenedMemberVariables {
+  userId: string
+  recipientId: string
 }
 
 export const getProjectOrCustomDomain = (apiUrl: string, hostOptions: HostOptions): GetProjectOrCustomDomainResult => {
@@ -293,7 +296,7 @@ const updateMember =
 
 const emailOpenedOneMember =
   (client: Client) =>
-  async (variables: UnsubscribeMemberVariables): Promise<Member | null> => {
+  async (variables: EmailOpenedMemberVariables): Promise<Member | null> => {
     let member: Member | null
     try {
       const { data } = await client
@@ -382,7 +385,7 @@ export class BlogodyAPI {
     return await updateMember(this.client)(variables)
   }
 
-  async memberEmailOpened(variables: UnsubscribeMemberVariables): Promise<Member | null> {
+  async memberEmailOpened(variables: EmailOpenedMemberVariables): Promise<Member | null> {
     return await emailOpenedOneMember(this.client)(variables)
   }
 }
