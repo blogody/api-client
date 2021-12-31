@@ -217,8 +217,8 @@ export const confirmOneMemberMutation = `
 `
 
 export const unsubscribeOneMemberMutation = `
-  mutation unscubscribeOneMember($userId: String!, $memberId: String!, $email: String!) {
-    unsubscribeOneMember(userId: $userId, memberId: $memberId, email: $email) {
+  mutation unscubscribeOneMember($userId: String!, $recipientId: String!, $memberId: String!, $email: String!) {
+    unsubscribeOneMember(userId: $userId, recipientId: $recipientId, memberId: $memberId, email: $email) {
       id
     }
   }
