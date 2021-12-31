@@ -225,8 +225,8 @@ export const unsubscribeOneMemberMutation = `
 `
 
 export const emailOpenedOneMemberMutation = `
-  mutation emailOpenedOneMemberMutation($userId: String!, $recipientId: String!, $memberId: String!, $email: String!) {
-    emailOpenedOneMemberMutation(userId: $userId, recipientId: $recipientId, memberId: $memberId, email: $email) {
+  mutation emailOpenedOneMember($userId: String!, $recipientId: String!, $memberId: String!, $email: String!) {
+    emailOpenedOneMember(userId: $userId, recipientId: $recipientId, memberId: $memberId, email: $email) {
       id
     }
   }
