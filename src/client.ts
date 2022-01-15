@@ -61,12 +61,7 @@ interface AddMemberVariables {
   updatedAt?: string
 }
 
-interface UnsubscribeMemberVariables {
-  userId: string
-  memberId: string
-}
-
-interface EmailOpenedMemberVariables {
+interface UpdateMemberVariables {
   userId: string
   recipientId: string
 }
@@ -278,9 +273,9 @@ const upsertMember =
     return member
   }
 
-const updateMember =
+const unsubscribeOneMember =
   (client: Client) =>
-  async (variables: UnsubscribeMemberVariables): Promise<Member | null> => {
+  async (variables: UpdateMemberVariables): Promise<Member | null> => {
     let member: Member | null
     try {
       const { data } = await client
@@ -296,7 +291,7 @@ const updateMember =
 
 const emailOpenedOneMember =
   (client: Client) =>
-  async (variables: EmailOpenedMemberVariables): Promise<Member | null> => {
+  async (variables: UpdateMemberVariables): Promise<Member | null> => {
     let member: Member | null
     try {
       const { data } = await client
@@ -381,11 +376,11 @@ export class BlogodyAPI {
     return await upsertMember(this.client)(variables)
   }
 
-  async unsubscribeMember(variables: UnsubscribeMemberVariables): Promise<Member | null> {
-    return await updateMember(this.client)(variables)
+  async unsubscribeMember(variables: UpdateMemberVariables): Promise<Member | null> {
+    return await unsubscribeOneMember(this.client)(variables)
   }
 
-  async memberEmailOpened(variables: EmailOpenedMemberVariables): Promise<Member | null> {
+  async memberEmailOpened(variables: UpdateMemberVariables): Promise<Member | null> {
     return await emailOpenedOneMember(this.client)(variables)
   }
 }
