@@ -1,5 +1,9 @@
 export interface User {
   email: string
+  image?: string
+  profileImage?: string
+  profileImageWidth?: string
+  profileImageHeight?: string
 }
 
 export interface Tag {
@@ -75,6 +79,12 @@ export interface Settings {
   accent?: string
   brandLabel?: string
   brandUrl?: string
+  iconImage?: string
+  iconImageWidth?: string
+  iconImageHeight?: string
+  logoImage?: string
+  logoImageWidth?: string
+  logoImageHeight?: string
   url: string
   navigations: Navigation[]
   socials: Social[]

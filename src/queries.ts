@@ -2,6 +2,10 @@ export const userQuery = `
   query {
     oneUser {
       email
+      image
+      profileImage
+      profileImageWidth
+      profileImageHeight
     }
   }
 `
@@ -16,6 +20,12 @@ export const allSettingsQuery = `
       accent
       brandLabel
       brandUrl
+      iconImage
+      iconImageWidth
+      iconImageHeight
+      logoImage
+      logoImageWidth
+      logoImageHeight
       navigations {
         sort
         label

@@ -117,7 +117,10 @@ const initClient = ({ apiUrl, key, hostOptions }: { apiUrl: string; key: string;
 const oneUser = (client: Client) => async (): Promise<User | null> => {
   try {
     const { data } = await client.query<{ oneUser: User }>(userQuery).toPromise()
-    return data?.oneUser ?? null
+    if (!data) return null
+    const user = data.oneUser
+    user.profileImage = user.profileImage || user.image
+    return { ...user, image: undefined }
   } catch {
     throw new Error('GraphQl fetching failed')
   }
