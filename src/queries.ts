@@ -14,6 +14,7 @@ export const allSettingsQuery = `
   query {
     allSettings {
       title
+      titleHidden
       description
       descriptionHidden
       lang

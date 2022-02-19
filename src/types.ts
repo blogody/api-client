@@ -73,6 +73,7 @@ export interface Analytic {
 export interface Settings {
   id: string
   title: string
+  titleHidden: boolean
   description: string
   descriptionHidden: boolean
   lang: string
