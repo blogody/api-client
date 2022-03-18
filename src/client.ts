@@ -108,9 +108,19 @@ const fetchOptions = ({ key, apiUrl, hostOptions }: { key: string; apiUrl: strin
   },
 })
 
-const initClient = ({ apiUrl, key, hostOptions }: { apiUrl: string; key: string; hostOptions?: HostOptions }) =>
+const initClient = ({
+  key,
+  apiUrl,
+  hostOptions,
+  apiPath = '/api/v1/graphql',
+}: {
+  key: string
+  apiUrl: string
+  hostOptions?: HostOptions
+  apiPath?: string
+}) =>
   createClient({
-    url: `${apiUrl}/api/v1/graphql`,
+    url: `${apiUrl}${apiPath}`,
     fetchOptions: fetchOptions({ key, apiUrl, hostOptions }),
   })
 
@@ -120,7 +130,7 @@ const oneUser = (client: Client) => async (): Promise<User | null> => {
     if (!data) return null
     const user = data.oneUser
     user.profileImage = user.profileImage || user.image
-    return { ...user, image: undefined }
+    return { ...user, image: '' }
   } catch {
     throw new Error('GraphQl fetching failed')
   }
@@ -312,15 +322,16 @@ interface BlogodyAPIProps {
   key: string
   hostOptions?: HostOptions
   apiUrl?: string
+  apiPath?: string
 }
 
 export class BlogodyAPI {
   private client: Client
 
-  constructor({ key, hostOptions, apiUrl: url }: BlogodyAPIProps) {
+  constructor({ key, hostOptions, apiUrl: url, apiPath }: BlogodyAPIProps) {
     const blogodyUrl = 'https://www.blogody.com'
     const apiUrl = url || blogodyUrl
-    const client = initClient({ apiUrl, key, hostOptions })
+    const client = initClient({ apiUrl, key, hostOptions, apiPath })
     this.client = client
   }
 
