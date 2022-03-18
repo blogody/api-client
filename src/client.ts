@@ -78,7 +78,7 @@ export const getProjectOrCustomDomain = (apiUrl: string, hostOptions: HostOption
   }
 
   // project = subdomain
-  const re = new RegExp(/^https:\/\/[^.]+.(.*)\/?/) //get domain ex subdomain
+  const re = new RegExp(/^https:\/\/[^.]+(\..*)\/?/) //get domain ex subdomain
   const domain = apiUrl.match(re)?.[1] ?? ''
   const project = host.replace(domain, '')
   if (host.search(domain) > 0) {
